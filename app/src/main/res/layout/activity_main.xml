@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (DB LIB 2)  USING "DATA BINDING" LIBRARY: -->
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- (DB LIB 2-1) ADDING "DATA BINDING" IN "XML" (RECOMMENDED)
+             ♦ Connecting the "ViewModel"
+                → and the "LiveData" with
+                → with the "<layout>" -->
+    <data>
+        <!-- ♦ Creating "userViewModel" Object
+                → which we "Refer" to in "UserViewModel.kt" File:    -->
+        <variable
+            name="userViewModel"
+            type="com.chivumarius.contactsmanagerapp.myviewModel.UserViewModel" />
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:background="@drawable/gradient_backgroun"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint2"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- (LD LIB 3-1) GETTING "LIVE DATA"
+                        → by Setting "Observer" here
+                       → to allow the "TextView" Widget
+                       → Automatic Observation
+                       → in the "text" Attribute
+                       → by using the "@={}" Notation
+                       → to "Refer" the "myViewModel.inputName"
+                       → from "UserViewModel.kt" File: -->
+        <EditText
+
+            android:text="@={userViewModel.inputName}"
+            android:id="@+id/nameET"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="91dp"
+            android:layout_marginBottom="3dp"
+            android:hint="enter your name"
+            app:layout_constraintBottom_toTopOf="@+id/emailET"
+            app:layout_constraintEnd_toStartOf="@+id/btn1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- (LD LIB 3-12 GETTING "LIVE DATA"
+                        → by Setting "Observer" here
+                       → to allow the "TextView" Widget
+                       → Automatic Observation
+                       → in the "text" Attribute
+                       → by using the "@={}" Notation
+                       → to "Refer" the "myViewModel.inputEmail"
+                       → from "UserViewModel.kt" File: -->
+        <EditText
+            android:text="@={userViewModel.inputEmail}"
+            android:id="@+id/emailET"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="91dp"
+            android:layout_marginBottom="9dp"
+            android:hint="enter your email"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/nameET"
+            app:layout_constraintEnd_toStartOf="@+id/btn2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nameET" />
+
+
+        <!-- (DB LIB 2-2) Setting a "on Click" Event
+                        → for the "Save" Button
+                        → in the "text" Attribute
+                        → using the "@={}" Notation
+                        → to "Refer" the "userViewModel" Object
+                        → and to Call the "clearAllOrDeleteButtonText()" Method
+                        → and in the "onClick" Attribute
+                         → we Set it to "Refer" the "userViewModel" Object
+                        → and to Call the "saveOrUpdate()" Method -->
+        <Button
+            android:onClick="@{()->userViewModel.saveOrUpdate()}"
+            android:id="@+id/btn1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="56dp"
+            android:text="@={userViewModel.saveOrUpdateButtonText}"
+            app:layout_constraintBottom_toTopOf="@+id/btn2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/nameET"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <!-- (DB LIB 2-3) Setting a "on Click" Event
+                        → for the "Delete" Button
+                        → in the "text" Attribute
+                        → using the "@={}" Notation
+                        → to "Refer" the "userViewModel" Object
+                        → and to Call the "clearAllOrDeleteButtonText()" Method
+                         → and in the "onClick" Attribute
+                         → we Set it to "Refer" the "userViewModel" Object
+                        → and to Call the "clearAllorDelete()" Method -->
+        <Button
+            android:onClick="@{()->userViewModel.clearAllorDelete()}"
+            android:id="@+id/btn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="54dp"
+            android:layout_marginBottom="2dp"
+            android:text="@={userViewModel.clearAllOrDeleteButtonText}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/emailET"
+            app:layout_constraintTop_toBottomOf="@+id/btn1" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraint2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
